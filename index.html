@@ -1,0 +1,876 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pau Montagut Bofi</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=SF+Pro+Display:wght@300;400;500;600;700&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #1d1d1f;
+            --gray-dark: #424245;
+            --gray-mid: #6e6e73;
+            --gray-light: #86868b;
+            --gray-border: #d2d2d7;
+            --gray-bg: #f5f5f7;
+            --white: #fbfbfd;
+            --accent: #0071e3;
+            --accent-hover: #0077ed;
+            --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+            --font-serif: 'Source Serif 4', 'Georgia', serif;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-display);
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.5;
+            overflow-x: hidden;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            background: rgba(251, 251, 253, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .nav-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover {
+            color: var(--black);
+        }
+
+        /* ── HERO ── */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 6rem 2rem 4rem;
+            position: relative;
+        }
+
+        .hero-label {
+            font-size: 0.75rem;
+            font-weight: 500;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.2s;
+        }
+
+        .hero h1 {
+            font-size: clamp(3rem, 8vw, 5.5rem);
+            font-weight: 700;
+            letter-spacing: -0.04em;
+            line-height: 1.05;
+            color: var(--black);
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+
+        .hero-subtitle {
+            font-family: var(--font-serif);
+            font-size: clamp(1.1rem, 2.5vw, 1.35rem);
+            font-weight: 300;
+            color: var(--gray-mid);
+            max-width: 600px;
+            line-height: 1.6;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.6s;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.8s;
+        }
+
+        .hero-links a {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            padding: 0.5rem 0;
+            transition: opacity 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .hero-links a:hover {
+            opacity: 0.7;
+        }
+
+        .hero-links .sep {
+            color: var(--gray-border);
+            font-weight: 300;
+            user-select: none;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 1s;
+        }
+
+        .scroll-hint span {
+            display: block;
+            width: 1px;
+            height: 40px;
+            background: var(--gray-border);
+            margin: 0 auto;
+            animation: scrollPulse 2s ease infinite;
+        }
+
+        /* ── SECTIONS ── */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+        }
+
+        .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .section-title {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.1;
+            color: var(--black);
+            margin-bottom: 1rem;
+        }
+
+        .section-subtitle {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--gray-mid);
+            max-width: 640px;
+            line-height: 1.65;
+            margin-bottom: 3.5rem;
+        }
+
+        /* ── ABOUT ── */
+        .about-section {
+            background: var(--gray-bg);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-text {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            line-height: 1.75;
+            color: var(--gray-dark);
+        }
+
+        .about-text p + p {
+            margin-top: 1.25rem;
+        }
+
+        .about-details {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .detail-block h3 {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .detail-block p {
+            font-size: 0.95rem;
+            color: var(--black);
+            line-height: 1.6;
+        }
+
+        .detail-block a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .skills-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .skill-tag {
+            font-size: 0.75rem;
+            font-weight: 500;
+            padding: 0.3rem 0.7rem;
+            background: white;
+            border: 1px solid var(--gray-border);
+            border-radius: 100px;
+            color: var(--gray-dark);
+        }
+
+        /* ── PROJECTS ── */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .project-card {
+            background: var(--gray-bg);
+            border-radius: 20px;
+            padding: 2.5rem;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            cursor: default;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .project-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .project-card.featured {
+            grid-column: 1 / -1;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+            background: var(--black);
+            color: white;
+        }
+
+        .project-card.featured .project-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .project-card.featured .project-title {
+            color: white;
+        }
+
+        .project-card.featured .project-desc {
+            color: rgba(255,255,255,0.7);
+        }
+
+        .project-card.featured .project-tech .skill-tag {
+            background: rgba(255,255,255,0.1);
+            border-color: rgba(255,255,255,0.15);
+            color: rgba(255,255,255,0.8);
+        }
+
+        .project-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .project-title {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            margin-bottom: 0.75rem;
+        }
+
+        .project-desc {
+            font-family: var(--font-serif);
+            font-size: 0.95rem;
+            color: var(--gray-mid);
+            line-height: 1.65;
+            margin-bottom: 1.5rem;
+        }
+
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.35rem;
+        }
+
+        .project-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            margin-top: 1rem;
+            transition: opacity 0.2s;
+        }
+
+        .project-card.featured .project-link {
+            color: #64d2ff;
+        }
+
+        .project-link:hover {
+            opacity: 0.7;
+        }
+
+        .project-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .project-icon {
+            width: 100%;
+            max-width: 280px;
+            aspect-ratio: 1;
+            border-radius: 20px;
+            background: rgba(255,255,255,0.05);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 5rem;
+        }
+
+        /* ── PAPERS ── */
+        .papers-section {
+            background: var(--gray-bg);
+        }
+
+        .papers-list {
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
+
+        .paper-item {
+            padding: 2rem 0;
+            border-bottom: 1px solid var(--gray-border);
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 2rem;
+            align-items: start;
+        }
+
+        .paper-item:first-child {
+            padding-top: 0;
+        }
+
+        .paper-year {
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: var(--gray-light);
+            padding-top: 0.2rem;
+            min-width: 50px;
+        }
+
+        .paper-content h3 {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 0.4rem;
+            line-height: 1.35;
+        }
+
+        .paper-authors {
+            font-size: 0.85rem;
+            color: var(--gray-mid);
+            margin-bottom: 0.3rem;
+        }
+
+        .paper-venue {
+            font-family: var(--font-serif);
+            font-style: italic;
+            font-size: 0.85rem;
+            color: var(--gray-light);
+        }
+
+        .paper-links {
+            margin-top: 0.6rem;
+            display: flex;
+            gap: 1rem;
+        }
+
+        .paper-links a {
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+            transition: opacity 0.2s;
+        }
+
+        .paper-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* ── QUOTE ── */
+        .quote-section {
+            text-align: center;
+            padding: 8rem 2rem;
+        }
+
+        .quote-section blockquote {
+            font-family: var(--font-serif);
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 300;
+            font-style: italic;
+            color: var(--gray-dark);
+            max-width: 700px;
+            margin: 0 auto;
+            line-height: 1.5;
+            letter-spacing: -0.01em;
+        }
+
+        .quote-section cite {
+            display: block;
+            margin-top: 1.5rem;
+            font-family: var(--font-display);
+            font-style: normal;
+            font-size: 0.8rem;
+            font-weight: 500;
+            color: var(--gray-light);
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .footer-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--black);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes scrollPulse {
+            0%, 100% { opacity: 0.3; transform: scaleY(0.6); transform-origin: top; }
+            50% { opacity: 1; transform: scaleY(1); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 2.5rem;
+            }
+
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .project-card.featured {
+                grid-template-columns: 1fr;
+            }
+
+            .project-visual {
+                display: none;
+            }
+
+            .paper-item {
+                grid-template-columns: 1fr;
+                gap: 0.3rem;
+            }
+
+            .nav-links {
+                gap: 1.2rem;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* ── MOBILE NAV ── */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            background: var(--black);
+            margin: 4px 0;
+            transition: 0.3s;
+        }
+
+        @media (max-width: 520px) {
+            .nav-links {
+                display: none;
+            }
+            .nav-toggle {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <div class="nav-name">Pau Montagut Bofi</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#projects">Projects</a></li>
+            <li><a href="#papers">Papers</a></li>
+            <li><a href="mailto:montagutpau@gmail.com">Contact</a></li>
+        </ul>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-label">Robotics · AI · Vision</div>
+    <h1>Pau Montagut Bofi</h1>
+    <p class="hero-subtitle">
+        Robotics Intelligence student building at the intersection of embodied AI, computer vision, and real-world robots. Currently researching Vision-Language-Action models at TU Wien.
+    </p>
+    <div class="hero-links">
+        <a href="https://github.com/paumontagut" target="_blank">GitHub ↗</a>
+        <span class="sep">·</span>
+        <a href="https://linkedin.com/in/paumontagutbofi" target="_blank">LinkedIn ↗</a>
+        <span class="sep">·</span>
+        <a href="https://x.com/Pau_Montagut" target="_blank">X ↗</a>
+        <span class="sep">·</span>
+        <a href="mailto:montagutpau@gmail.com">Email ↗</a>
+    </div>
+    <div class="scroll-hint"><span></span></div>
+</section>
+
+<!-- ABOUT -->
+<section class="about-section" id="about">
+    <div class="section-inner reveal">
+        <div class="section-label">About</div>
+        <div class="section-title">Simplicity is the<br>ultimate sophistication.</div>
+        <div class="about-grid" style="margin-top: 2.5rem;">
+            <div class="about-text">
+                <p>I'm a final-year Robotics Intelligence student at Universitat Jaume I, currently on a research internship at the V4R (Vision for Robotics) lab at TU Wien in Vienna, supervised by Tessa Pulli under Prof. Markus Vincze.</p>
+                <p>My work focuses on adapting Vision-Language-Action models to the Toyota HSR robot — bridging the gap between large-scale pretrained models and real-world robotic embodiments with non-standard action spaces.</p>
+                <p>Before Vienna, I co-founded the UJI Robotics Team, led technology at Adagio (an AI accessibility startup), and built systems ranging from ocean-cleaning robots to drone-based 3D reconstruction pipelines. I believe the best engineering feels effortless — simple on the surface, deeply considered underneath.</p>
+            </div>
+            <div class="about-details">
+                <div class="detail-block">
+                    <h3>Currently</h3>
+                    <p>Research Intern — <a href="https://v4r.acin.tuwien.ac.at/" target="_blank">V4R Lab, TU Wien</a>, Vienna</p>
+                </div>
+                <div class="detail-block">
+                    <h3>Education</h3>
+                    <p>B.Sc. Robotic Intelligence — Universitat Jaume I, 2021–2026</p>
+                    <p>Exchange — University of Bremen, 2024</p>
+                </div>
+                <div class="detail-block">
+                    <h3>Recognition</h3>
+                    <p>1st Place ASTI Challenge 2023 · 2nd Place CEABOT 2022 · Premis Talent Award 2023</p>
+                </div>
+                <div class="detail-block">
+                    <h3>Skills</h3>
+                    <div class="skills-row">
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">ROS / ROS2</span>
+                        <span class="skill-tag">C++</span>
+                        <span class="skill-tag">Computer Vision</span>
+                        <span class="skill-tag">Deep Learning</span>
+                        <span class="skill-tag">Gazebo</span>
+                        <span class="skill-tag">Linux</span>
+                        <span class="skill-tag">Unity</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-label">Projects</div>
+            <div class="section-title">Things I've built.</div>
+            <p class="section-subtitle">A selection of projects across robotics, AI, and computer vision — from research prototypes to competition-winning systems.</p>
+        </div>
+        <div class="projects-grid">
+
+            <!-- Featured: VLA -->
+            <div class="project-card featured reveal">
+                <div>
+                    <div class="project-label">Current Research · TU Wien</div>
+                    <div class="project-title">Vision-Language-Action Models for the Toyota HSR</div>
+                    <p class="project-desc">Adapting VLA models (SmolVLA, OpenVLA) to a robot with an 11-dimensional joint-space action space. Comparative study on embodiment mismatch, fine-tuning with the AIRoA MoMa dataset (25K+ episodes), targeting ICRA 2026 workshop.</p>
+                    <div class="project-tech">
+                        <span class="skill-tag">PyTorch</span>
+                        <span class="skill-tag">HuggingFace</span>
+                        <span class="skill-tag">ROS</span>
+                        <span class="skill-tag">Flow Matching</span>
+                        <span class="skill-tag">RTX 3090</span>
+                    </div>
+                </div>
+                <div class="project-visual">
+                    <div class="project-icon">🤖</div>
+                </div>
+            </div>
+
+            <!-- 3DGS -->
+            <div class="project-card reveal">
+                <div class="project-label">Computer Vision</div>
+                <div class="project-title">Drone 3D Reconstruction with Gaussian Splatting</div>
+                <p class="project-desc">End-to-end pipeline: simulated drone captures multi-altitude orbital imagery, bypasses SfM with ground-truth poses, and trains a 3DGS model. Single-command automation via ROS2 + Gazebo + ArduPilot.</p>
+                <div class="project-tech">
+                    <span class="skill-tag">3DGS</span>
+                    <span class="skill-tag">ROS2</span>
+                    <span class="skill-tag">Gazebo</span>
+                    <span class="skill-tag">ArduPilot</span>
+                </div>
+                <a class="project-link" href="https://github.com/paumontagut/drone_3dgs_ros2" target="_blank">View on GitHub →</a>
+            </div>
+
+            <!-- Adagio -->
+            <div class="project-card reveal">
+                <div class="project-label">AI Startup · CTO</div>
+                <div class="project-title">Adagio — Speech Accessibility</div>
+                <p class="project-desc">AI-powered platform that converts atypical speech into clear text and audio for meetings, classes, and video calls. Fine-tuned Whisper models for non-standard speech patterns. Leading technology strategy and product development.</p>
+                <div class="project-tech">
+                    <span class="skill-tag">Whisper</span>
+                    <span class="skill-tag">Fine-tuning</span>
+                    <span class="skill-tag">ASR</span>
+                    <span class="skill-tag">Accessibility</span>
+                </div>
+            </div>
+
+            <!-- Robotics Team -->
+            <div class="project-card reveal">
+                <div class="project-label">Co-Founder</div>
+                <div class="project-title">UJI Robotics Team</div>
+                <p class="project-desc">Co-founded the university's competitive robotics team. Built robots for national competitions, achieving 1st place at ASTI Challenge 2023 and top positions at CEABOT. Multidisciplinary team of 15+ members.</p>
+                <div class="project-tech">
+                    <span class="skill-tag">ROS</span>
+                    <span class="skill-tag">OpenCV</span>
+                    <span class="skill-tag">C++</span>
+                    <span class="skill-tag">Leadership</span>
+                </div>
+            </div>
+
+            <!-- Ocean Robot -->
+            <div class="project-card reveal">
+                <div class="project-label">Award-Winning · Premis Talent</div>
+                <div class="project-title">Aquatic Waste Collection Robot</div>
+                <p class="project-desc">Designed an autonomous robot to collect floating ocean waste using AI and computer vision. Won the best project award, attracting interest from municipalities and coastal cleaning companies.</p>
+                <div class="project-tech">
+                    <span class="skill-tag">Computer Vision</span>
+                    <span class="skill-tag">ML</span>
+                    <span class="skill-tag">Autonomous Systems</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+<!-- PAPERS -->
+<section class="papers-section" id="papers">
+    <div class="section-inner">
+        <div class="reveal">
+            <div class="section-label">Papers & Writing</div>
+            <div class="section-title">Research work.</div>
+            <p class="section-subtitle">Academic papers written during my studies — from drone reconstruction to embodied AI.</p>
+        </div>
+        <div class="papers-list reveal">
+            <div class="paper-item">
+                <div class="paper-year">2026</div>
+                <div class="paper-content">
+                    <h3>Adapting Vision-Language-Action Models to the Toyota HSR Robot</h3>
+                    <div class="paper-authors">Pau Montagut Bofi</div>
+                    <div class="paper-venue">Bachelor's Thesis — Universitat Jaume I / V4R Lab, TU Wien (in progress)</div>
+                </div>
+            </div>
+            <div class="paper-item">
+                <div class="paper-year">2025</div>
+                <div class="paper-content">
+                    <h3>Autonomous 3D Scene Reconstruction from Simulated Drone Imagery Using 3D Gaussian Splatting</h3>
+                    <div class="paper-authors">Pau Montagut Bofi</div>
+                    <div class="paper-venue">Universitat Jaume I</div>
+                    <div class="paper-links">
+                        <a href="https://github.com/paumontagut/drone_3dgs_ros2" target="_blank">Code</a>
+                        <a href="https://youtu.be/1tNJBKeUzZU" target="_blank">Video</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+    <div class="reveal">
+        <blockquote>"Focus and simplicity. Simple can be harder than complex; you have to work hard to get your thinking clean to make it simple."</blockquote>
+        <cite>Steve Jobs</cite>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-text">© 2026 Pau Montagut Bofi</div>
+        <div class="footer-links">
+            <a href="https://github.com/paumontagut" target="_blank">GitHub</a>
+            <a href="https://linkedin.com/in/paumontagutbofi" target="_blank">LinkedIn</a>
+            <a href="https://x.com/Pau_Montagut" target="_blank">X</a>
+            <a href="mailto:montagutpau@gmail.com">montagutpau@gmail.com</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    // Scroll reveal
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
