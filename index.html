@@ -22,6 +22,16 @@
             --font-serif: 'Source Serif 4', 'Georgia', serif;
         }
 
+        html.dark {
+            --black: #f5f5f7;
+            --gray-dark: #d2d2d7;
+            --gray-mid: #a1a1a6;
+            --gray-light: #86868b;
+            --gray-border: #38383a;
+            --gray-bg: #1c1c1e;
+            --white: #000000;
+        }
+
         * {
             margin: 0;
             padding: 0;
@@ -41,6 +51,7 @@
             background: var(--white);
             line-height: 1.5;
             overflow-x: hidden;
+            transition: background 0.3s ease, color 0.3s ease;
         }
 
         ::selection {
@@ -751,9 +762,121 @@
                 grid-column: auto;
             }
         }
+
+        /* ── DARK MODE OVERRIDES ── */
+        html.dark nav {
+            background: rgba(0, 0, 0, 0.72);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        html.dark .skill-tag {
+            background: rgba(255,255,255,0.06);
+            border-color: var(--gray-border);
+        }
+
+        html.dark .project-card {
+            background: #1c1c1e;
+        }
+
+        html.dark .project-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+
+        html.dark .project-card.featured {
+            background: #f5f5f7;
+            color: #1d1d1f;
+        }
+
+        html.dark .project-card.featured .project-label {
+            color: rgba(0,0,0,0.45);
+        }
+
+        html.dark .project-card.featured .project-title {
+            color: #1d1d1f;
+        }
+
+        html.dark .project-card.featured .project-desc {
+            color: rgba(0,0,0,0.6);
+        }
+
+        html.dark .project-card.featured .project-tech .skill-tag {
+            background: rgba(0,0,0,0.06);
+            border-color: rgba(0,0,0,0.1);
+            color: rgba(0,0,0,0.7);
+        }
+
+        html.dark .project-card.featured .project-link {
+            color: var(--accent);
+        }
+
+        html.dark .contact-card {
+            background: #1c1c1e;
+        }
+
+        html.dark .contact-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+
+        html.dark .contact-card.email-card {
+            background: #f5f5f7;
+        }
+
+        html.dark .contact-card.email-card .contact-card-label {
+            color: rgba(0,0,0,0.45);
+        }
+
+        html.dark .contact-card.email-card .contact-card-value {
+            color: #1d1d1f;
+        }
+
+        html.dark .contact-card.email-card svg {
+            color: rgba(0,0,0,0.4);
+        }
+
+        html.dark .contact-card.email-card:hover svg {
+            color: #1d1d1f;
+        }
+
+        html.dark .about-section,
+        html.dark .papers-section {
+            background: #1c1c1e;
+        }
+
+        html.dark .hero-photo {
+            filter: grayscale(0.15) brightness(0.9);
+        }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-mid);
+            transition: color 0.2s;
+            margin-left: 0.5rem;
+        }
+
+        .theme-toggle:hover {
+            color: var(--black);
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .theme-toggle .icon-moon { display: none; }
+        html.dark .theme-toggle .icon-sun { display: none; }
+        html.dark .theme-toggle .icon-moon { display: block; }
     </style>
 </head>
 <body>
+<script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
 
 <!-- NAV -->
 <nav>
@@ -765,6 +888,14 @@
             <li><a href="#papers">Papers</a></li>
             <li><a href="#contact">Contact</a></li>
         </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M17.72 17.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M17.72 6.28l1.06-1.06M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+        </button>
         <button class="nav-toggle" onclick="document.querySelector('.nav-links').style.display = document.querySelector('.nav-links').style.display === 'flex' ? 'none' : 'flex'" aria-label="Menu">
             <span></span><span></span><span></span>
         </button>
@@ -1014,6 +1145,17 @@
 </footer>
 
 <script>
+    // Theme toggle
+    function toggleTheme() {
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    }
+
+    // Load saved theme
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+
     // Scroll reveal
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
