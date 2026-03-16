@@ -16,8 +16,8 @@
             --gray-border: #d2d2d7;
             --gray-bg: #f5f5f7;
             --white: #fbfbfd;
-            --accent: #0071e3;
-            --accent-hover: #0077ed;
+            --accent: #E8663C;
+            --accent-hover: #D4572E;
             --font-display: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
             --font-serif: 'Source Serif 4', 'Georgia', serif;
         }
@@ -398,7 +398,7 @@
         }
 
         .project-card.featured .project-link {
-            color: #64d2ff;
+            color: #F2A88A;
         }
 
         .project-link:hover {
@@ -492,98 +492,6 @@
 
         .paper-links a:hover {
             opacity: 0.7;
-        }
-
-        /* ── CONTACT ── */
-        .contact-section {
-            text-align: center;
-            padding: 6rem 2rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1rem;
-            max-width: 480px;
-            margin: 0 auto;
-        }
-
-        .contact-card {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            padding: 1.25rem 1.5rem;
-            background: var(--gray-bg);
-            border-radius: 14px;
-            text-decoration: none;
-            color: var(--black);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .contact-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
-        }
-
-        .contact-card svg {
-            width: 22px;
-            height: 22px;
-            flex-shrink: 0;
-            color: var(--gray-mid);
-            transition: color 0.2s;
-        }
-
-        .contact-card:hover svg {
-            color: var(--black);
-        }
-
-        .contact-card-info {
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-        }
-
-        .contact-card-label {
-            font-size: 0.7rem;
-            font-weight: 600;
-            letter-spacing: 0.06em;
-            text-transform: uppercase;
-            color: var(--gray-light);
-            line-height: 1.3;
-        }
-
-        .contact-card-value {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--black);
-            white-space: nowrap;
-            overflow: hidden;
-            text-overflow: ellipsis;
-        }
-
-        .contact-card.email-card {
-            grid-column: 1 / -1;
-            background: var(--black);
-        }
-
-        .contact-card.email-card svg {
-            color: rgba(255,255,255,0.5);
-        }
-
-        .contact-card.email-card:hover svg {
-            color: white;
-        }
-
-        .contact-card.email-card .contact-card-label {
-            color: rgba(255,255,255,0.5);
-        }
-
-        .contact-card.email-card .contact-card-value {
-            color: white;
-        }
-
-        .contact-card.email-card:hover {
-            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
         }
 
         /* ── QUOTE ── */
@@ -712,14 +620,6 @@
                 gap: 1rem;
                 text-align: center;
             }
-
-            .contact-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .contact-card.email-card {
-                grid-column: auto;
-            }
         }
 
         /* ── MOBILE NAV ── */
@@ -746,6 +646,108 @@
             }
             .nav-toggle {
                 display: block;
+            }
+        }
+
+        /* ── CONTACT ── */
+        .contact-section {
+            text-align: center;
+            padding: 6rem 2rem;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1rem;
+            max-width: 480px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1.25rem 1.5rem;
+            background: var(--gray-bg);
+            border-radius: 14px;
+            text-decoration: none;
+            color: var(--black);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .contact-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.06);
+        }
+
+        .contact-card svg {
+            width: 22px;
+            height: 22px;
+            flex-shrink: 0;
+            color: var(--gray-mid);
+            transition: color 0.2s;
+        }
+
+        .contact-card:hover svg {
+            color: var(--black);
+        }
+
+        .contact-card-info {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
+        }
+
+        .contact-card-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            line-height: 1.3;
+        }
+
+        .contact-card-value {
+            font-size: 0.9rem;
+            font-weight: 500;
+            color: var(--black);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .contact-card.email-card {
+            grid-column: 1 / -1;
+            background: var(--black);
+        }
+
+        .contact-card.email-card svg {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .contact-card.email-card:hover svg {
+            color: white;
+        }
+
+        .contact-card.email-card .contact-card-label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .contact-card.email-card .contact-card-value {
+            color: white;
+        }
+
+        .contact-card.email-card:hover {
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        @media (max-width: 520px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-card.email-card {
+                grid-column: auto;
             }
         }
     </style>
@@ -948,6 +950,7 @@
         </div>
     </div>
 </section>
+
 
 <!-- CONTACT -->
 <section class="contact-section" id="contact">
