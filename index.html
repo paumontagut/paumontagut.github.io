@@ -108,6 +108,17 @@
             position: relative;
         }
 
+        .hero-photo {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.1s;
+            filter: grayscale(0.15);
+        }
+
         .hero-label {
             font-size: 0.75rem;
             font-weight: 500;
@@ -659,6 +670,7 @@
 
 <!-- HERO -->
 <section class="hero">
+    <img src="photo.png" alt="Pau Montagut Bofi" class="hero-photo">
     <div class="hero-label">Robotics · AI · Vision</div>
     <h1>Pau Montagut Bofi</h1>
     <p class="hero-subtitle">
