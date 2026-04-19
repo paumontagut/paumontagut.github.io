@@ -105,7 +105,7 @@
             background: var(--white);
             line-height: 1.5;
             overflow-x: hidden;
-            transition: background 0.3s ease, color 0.3s ease;
+            transition: background 0.4s ease, color 0.4s ease;
         }
 
         ::selection {
@@ -1057,6 +1057,14 @@
         html.dark .theme-toggle .icon-sun { display: none; }
         html.dark .theme-toggle .icon-moon { display: block; }
 
+        /* ── THEME TRANSITION ── */
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *::before,
+        html.theme-transition *::after {
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+        }
+
         /* ── SCROLL PROGRESS ── */
         .scroll-progress {
             position: fixed;
@@ -1358,8 +1366,10 @@
 <script>
     // Theme toggle
     function toggleTheme() {
+        document.documentElement.classList.add('theme-transition');
         document.documentElement.classList.toggle('dark');
         localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 450);
     }
 
     // Load saved theme
