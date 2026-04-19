@@ -234,20 +234,35 @@
             color: var(--accent);
             text-decoration: none;
             padding: 0.5rem 0;
-            transition: opacity 0.2s;
+            transition: color 0.2s;
             display: flex;
             align-items: center;
             gap: 0.3rem;
+            position: relative;
         }
 
-        .hero-links a:hover {
-            opacity: 0.7;
+        .hero-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0.25rem;
+            left: 0;
+            width: 0;
+            height: 1px;
+            background: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .hero-links a:hover::after {
+            width: 100%;
         }
 
         .hero-links .sep {
             color: var(--gray-border);
             font-weight: 300;
             user-select: none;
+            padding: 0.5rem 0;
+            display: flex;
+            align-items: center;
         }
 
         .scroll-hint {
@@ -460,7 +475,7 @@
             color: var(--accent);
             text-decoration: none;
             margin-top: 1rem;
-            transition: opacity 0.2s;
+            transition: gap 0.3s ease, opacity 0.2s;
         }
 
         .project-card.featured .project-link {
@@ -468,7 +483,7 @@
         }
 
         .project-link:hover {
-            opacity: 0.7;
+            gap: 0.5rem;
         }
 
         .project-visual {
@@ -1035,10 +1050,38 @@
         .theme-toggle .icon-moon { display: none; }
         html.dark .theme-toggle .icon-sun { display: none; }
         html.dark .theme-toggle .icon-moon { display: block; }
+
+        /* ── SCROLL PROGRESS ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 2px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 101;
+            transition: none;
+        }
+
+        /* ── NAV SCROLL STATE ── */
+        nav.scrolled .nav-inner {
+            height: 44px;
+        }
+
+        nav.scrolled .nav-links {
+            top: 44px;
+        }
+
+        .nav-inner {
+            transition: height 0.3s ease;
+        }
     </style>
 </head>
 <body>
 <script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress"></div>
 
 <!-- NAV -->
 <nav>
@@ -1328,6 +1371,15 @@
     }, { threshold: 0.1 });
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    // Scroll progress bar + nav compact
+    const progress = document.querySelector('.scroll-progress');
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (window.scrollY / h * 100) + '%';
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
 </script>
 </body>
 </html>
