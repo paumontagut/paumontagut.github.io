@@ -1,0 +1,569 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News - Pau Montagut Bofi</title>
+
+    <meta name="description" content="News and media coverage about Pau Montagut Bofi — robotics, AI research, and competition results.">
+    <meta name="author" content="Pau Montagut Bofi">
+    <meta name="theme-color" content="#fafaf7" media="(prefers-color-scheme: light)">
+    <meta name="theme-color" content="#111111" media="(prefers-color-scheme: dark)">
+    <link rel="canonical" href="https://paumontagut.github.io/news">
+
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="News - Pau Montagut Bofi">
+    <meta property="og:description" content="News and media coverage about Pau Montagut Bofi.">
+    <meta property="og:url" content="https://paumontagut.github.io/news">
+    <meta property="og:site_name" content="Pau Montagut Bofi">
+
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 120 120'%3E%3Ccircle cx='60' cy='60' r='60' fill='%23ffffff'/%3E%3Crect x='40.4' y='33.4' width='5.6' height='56' fill='%23111111'/%3E%3Ccircle cx='60' cy='50.2' r='16.8' fill='none' stroke='%23111111' stroke-width='5.6'/%3E%3C/svg%3E">
+    <style>
+        :root {
+            --black: #111111;
+            --gray-dark: #424245;
+            --gray-mid: #6e6e73;
+            --gray-light: #86868b;
+            --gray-border: #d2d2d7;
+            --gray-bg: #f5f5f7;
+            --white: #fafaf7;
+            --accent: #E8663C;
+            --accent-hover: #D4572E;
+            --font-display: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            --font-serif: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+
+        html.dark {
+            --black: #fafaf7;
+            --gray-dark: #d2d2d7;
+            --gray-mid: #a1a1a6;
+            --gray-light: #86868b;
+            --gray-border: #38383a;
+            --gray-bg: #1a1a1a;
+            --white: #111111;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html {
+            font-size: 16px;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        body {
+            font-family: var(--font-display);
+            color: var(--black);
+            background: var(--white);
+            line-height: 1.5;
+            overflow-x: hidden;
+            transition: background 0.4s ease, color 0.4s ease;
+        }
+
+        ::selection {
+            background: var(--accent);
+            color: white;
+        }
+
+        /* ── NAV ── */
+        nav {
+            position: fixed;
+            top: 0; left: 0; right: 0;
+            z-index: 100;
+            background: rgba(250, 250, 247, 0.72);
+            backdrop-filter: saturate(180%) blur(20px);
+            -webkit-backdrop-filter: saturate(180%) blur(20px);
+            border-bottom: 1px solid rgba(0,0,0,0.04);
+        }
+
+        .nav-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            height: 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            transition: height 0.3s ease;
+        }
+
+        .nav-name {
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: var(--black);
+            letter-spacing: -0.01em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-decoration: none;
+            letter-spacing: 0.01em;
+            transition: color 0.2s;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--black);
+        }
+
+        /* ── PAGE HEADER ── */
+        .page-header {
+            padding: 10rem 2rem 4rem;
+            text-align: center;
+        }
+
+        .page-header .section-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--gray-light);
+            margin-bottom: 0.75rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 3.2rem);
+            font-weight: 700;
+            letter-spacing: -0.035em;
+            line-height: 1.1;
+            color: var(--black);
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-family: var(--font-serif);
+            font-size: 1.1rem;
+            font-weight: 300;
+            color: var(--gray-mid);
+            max-width: 640px;
+            line-height: 1.65;
+            margin: 0 auto;
+        }
+
+        /* ── NEWS GRID ── */
+        .news-section {
+            padding: 0 2rem 6rem;
+        }
+
+        .news-grid {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+        }
+
+        .news-card {
+            background: var(--gray-bg);
+            border-radius: 20px;
+            overflow: hidden;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            text-decoration: none;
+            color: var(--black);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .news-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.06);
+        }
+
+        .news-card-image {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+        }
+
+        .news-card-body {
+            padding: 1.75rem;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+
+        .news-card-source {
+            font-size: 0.7rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.5rem;
+        }
+
+        .news-card-title {
+            font-size: 1.15rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+            line-height: 1.35;
+            color: var(--black);
+            margin-bottom: 0.75rem;
+        }
+
+        .news-card-excerpt {
+            font-family: var(--font-serif);
+            font-size: 0.92rem;
+            font-weight: 300;
+            color: var(--gray-mid);
+            line-height: 1.65;
+            margin-bottom: 1.25rem;
+            flex: 1;
+        }
+
+        .news-card-date {
+            font-size: 0.75rem;
+            color: var(--gray-light);
+            margin-top: auto;
+        }
+
+        .news-card-arrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.3rem;
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            margin-top: 1rem;
+            transition: gap 0.3s ease;
+        }
+
+        .news-card:hover .news-card-arrow {
+            gap: 0.5rem;
+        }
+
+        /* ── EMPTY STATE ── */
+        .news-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 4rem 2rem;
+            color: var(--gray-light);
+            font-size: 1rem;
+        }
+
+        /* ── FOOTER ── */
+        footer {
+            padding: 3rem 2rem;
+            border-top: 1px solid var(--gray-border);
+        }
+
+        .footer-inner {
+            max-width: 1080px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .footer-text {
+            font-size: 0.8rem;
+            color: var(--gray-light);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.8rem;
+            color: var(--gray-mid);
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .footer-links a:hover {
+            color: var(--black);
+        }
+
+        /* ── ANIMATIONS ── */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.7s ease, transform 0.7s ease;
+        }
+
+        .reveal.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── THEME TOGGLE ── */
+        .theme-toggle {
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.4rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--gray-mid);
+            transition: color 0.2s;
+            margin-left: 0.5rem;
+        }
+
+        .theme-toggle:hover { color: var(--black); }
+        .theme-toggle svg { width: 18px; height: 18px; transition: transform 0.3s ease, opacity 0.3s ease; }
+        .theme-toggle .icon-moon { display: none; }
+        html.dark .theme-toggle .icon-sun { display: none; }
+        html.dark .theme-toggle .icon-moon { display: block; }
+
+        html.theme-transition,
+        html.theme-transition *,
+        html.theme-transition *::before,
+        html.theme-transition *::after {
+            transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+        }
+
+        /* ── SCROLL PROGRESS ── */
+        .scroll-progress {
+            position: fixed;
+            top: 0; left: 0;
+            height: 2px;
+            background: var(--accent);
+            width: 0%;
+            z-index: 101;
+            transition: none;
+        }
+
+        nav.scrolled .nav-inner { height: 44px; }
+        nav.scrolled .nav-links { top: 44px; }
+
+        /* ── RESPONSIVE ── */
+        @media (max-width: 768px) {
+            .news-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-inner {
+                flex-direction: column;
+                gap: 1rem;
+                text-align: center;
+            }
+        }
+
+        /* ── MOBILE NAV ── */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            cursor: pointer;
+            padding: 0.5rem;
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 18px;
+            height: 1.5px;
+            background: var(--black);
+            margin: 4px 0;
+            transition: transform 0.3s ease, opacity 0.2s ease;
+            transform-origin: center;
+        }
+
+        nav.nav-open .nav-toggle span:nth-child(1) { transform: translateY(5.5px) rotate(45deg); }
+        nav.nav-open .nav-toggle span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+        nav.nav-open .nav-toggle span:nth-child(3) { transform: translateY(-5.5px) rotate(-45deg); }
+
+        @media (max-width: 520px) {
+            .nav-inner { position: relative; }
+
+            .nav-links {
+                display: flex;
+                position: absolute;
+                top: 52px;
+                left: 0; right: 0;
+                flex-direction: column;
+                background: var(--white);
+                padding: 0.5rem 2rem 1rem;
+                gap: 0;
+                border-bottom: 1px solid var(--gray-border);
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-8px);
+                transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s;
+                pointer-events: none;
+            }
+
+            nav.nav-open .nav-links {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0);
+                pointer-events: auto;
+            }
+
+            .nav-links li {
+                list-style: none;
+                opacity: 0;
+                transform: translateY(-6px);
+                transition: opacity 0.25s ease, transform 0.25s ease;
+            }
+
+            nav.nav-open .nav-links li { opacity: 1; transform: translateY(0); }
+            nav.nav-open .nav-links li:nth-child(1) { transition-delay: 0.05s; }
+            nav.nav-open .nav-links li:nth-child(2) { transition-delay: 0.1s; }
+            nav.nav-open .nav-links li:nth-child(3) { transition-delay: 0.15s; }
+            nav.nav-open .nav-links li:nth-child(4) { transition-delay: 0.2s; }
+            nav.nav-open .nav-links li:nth-child(5) { transition-delay: 0.25s; }
+
+            .nav-links li a {
+                display: block;
+                font-size: 1rem;
+                font-weight: 400;
+                letter-spacing: -0.01em;
+                color: var(--black);
+                padding: 0.9rem 0;
+                border-bottom: 1px solid var(--gray-border);
+                transition: color 0.2s;
+            }
+
+            .nav-links li:last-child a { border-bottom: none; }
+
+            .nav-toggle { display: block; }
+
+            .page-header { padding: 8rem 1.5rem 3rem; }
+        }
+
+        /* ── DARK MODE ── */
+        html.dark nav {
+            background: rgba(17, 17, 17, 0.72);
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+        }
+
+        html.dark .news-card {
+            background: #1a1a1a;
+        }
+
+        html.dark .news-card:hover {
+            box-shadow: 0 12px 40px rgba(0,0,0,0.3);
+        }
+    </style>
+</head>
+<body>
+<script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+
+<!-- SCROLL PROGRESS -->
+<div class="scroll-progress"></div>
+
+<!-- NAV -->
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="nav-name" style="text-decoration:none;color:var(--black);font-weight:700;letter-spacing:-0.04em;">pmb<span style="color:var(--accent);">.</span></a>
+        <ul class="nav-links">
+            <li><a href="/#about">About</a></li>
+            <li><a href="/#projects">Projects</a></li>
+            <li><a href="/#papers">Papers</a></li>
+            <li><a href="/news" class="active">News</a></li>
+            <li><a href="/#contact">Contact</a></li>
+        </ul>
+        <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v1.5M12 19.5V21M4.22 4.22l1.06 1.06M17.72 17.72l1.06 1.06M3 12h1.5M19.5 12H21M4.22 19.78l1.06-1.06M17.72 6.28l1.06-1.06M16.5 12a4.5 4.5 0 11-9 0 4.5 4.5 0 019 0z"/>
+            </svg>
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21.752 15.002A9.718 9.718 0 0118 15.75c-5.385 0-9.75-4.365-9.75-9.75 0-1.33.266-2.597.748-3.752A9.753 9.753 0 003 11.25C3 16.635 7.365 21 12.75 21a9.753 9.753 0 009.002-5.998z"/>
+            </svg>
+        </button>
+        <button class="nav-toggle" onclick="document.querySelector('nav').classList.toggle('nav-open')" aria-label="Menu">
+            <span></span><span></span><span></span>
+        </button>
+    </div>
+</nav>
+
+<!-- HEADER -->
+<div class="page-header">
+    <div class="section-label">Press & Media</div>
+    <h1>News.</h1>
+    <p>Coverage and mentions in media, universities, and research institutions.</p>
+</div>
+
+<!-- NEWS -->
+<section class="news-section">
+    <div class="news-grid">
+
+        <!-- EXAMPLE CARD — replace with real news -->
+        <!--
+        <a class="news-card reveal" href="https://example.com/article" target="_blank" rel="noopener noreferrer">
+            <img class="news-card-image" src="https://example.com/image.jpg" alt="Article title" loading="lazy">
+            <div class="news-card-body">
+                <div class="news-card-source">Source Name</div>
+                <div class="news-card-title">Article headline goes here</div>
+                <p class="news-card-excerpt">A short excerpt or description of the article that gives context about what it covers.</p>
+                <div class="news-card-date">May 2026</div>
+                <span class="news-card-arrow">Read article →</span>
+            </div>
+        </a>
+        -->
+
+        <a class="news-card reveal" href="https://www.acin.tuwien.ac.at/en/award/" target="_blank" rel="noopener noreferrer">
+            <img class="news-card-image" src="https://2026.ieee-icra.org/wp-content/uploads/2025/06/ICRA-2026-Vienna-Banner.jpg" alt="ICRA 2026 Vienna" loading="lazy">
+            <div class="news-card-body">
+                <div class="news-card-source">TU Wien · V4R Lab</div>
+                <div class="news-card-title">1st place at the ICRA 2026 VLA competition</div>
+                <p class="news-card-excerpt">Pau Montagut Bofi and the V4R team won 1st place out of 36 international teams at the "From Data to Decisions" workshop competition, held within IEEE ICRA 2026 in Vienna.</p>
+                <div class="news-card-date">June 2026</div>
+                <span class="news-card-arrow">Read more →</span>
+            </div>
+        </a>
+
+    </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+    <div class="footer-inner">
+        <div class="footer-text">© 2026 <span style="font-weight:700;letter-spacing:-0.04em;color:var(--black);">pmb<span style="color:var(--accent);">.</span></span></div>
+        <div class="footer-links">
+            <a href="https://github.com/paumontagut" target="_blank" rel="noopener noreferrer">GitHub</a>
+            <a href="https://linkedin.com/in/paumontagutbofi" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+            <a href="https://x.com/Pau_Montagut" target="_blank" rel="noopener noreferrer">X</a>
+            <a href="mailto:montagutpau@gmail.com">montagutpau@gmail.com</a>
+        </div>
+    </div>
+</footer>
+
+<script>
+    function toggleTheme() {
+        document.documentElement.classList.add('theme-transition');
+        document.documentElement.classList.toggle('dark');
+        localStorage.setItem('theme', document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+        setTimeout(() => document.documentElement.classList.remove('theme-transition'), 450);
+    }
+
+    if (localStorage.getItem('theme') === 'dark') {
+        document.documentElement.classList.add('dark');
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) entry.target.classList.add('visible');
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+    const progress = document.querySelector('.scroll-progress');
+    const nav = document.querySelector('nav');
+    window.addEventListener('scroll', () => {
+        const h = document.documentElement.scrollHeight - window.innerHeight;
+        progress.style.width = (window.scrollY / h * 100) + '%';
+        nav.classList.toggle('scrolled', window.scrollY > 60);
+    }, { passive: true });
+</script>
+</body>
+</html>
