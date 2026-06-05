@@ -45,11 +45,21 @@
         "image": "https://paumontagut.github.io/photo.webp",
         "description": "Robotics Intelligence student and research intern at TU Wien. 1st place at the ICRA 2026 VLA competition (36 teams), with a paper accepted at the world's top robotics conference.",
         "jobTitle": "Robotics Research Intern",
-        "worksFor": {
-            "@type": "Organization",
-            "name": "V4R Lab, TU Wien",
-            "url": "https://www.acin.tuwien.ac.at/en/vision-for-robotics/"
-        },
+        "worksFor": [
+            {
+                "@type": "Organization",
+                "name": "V4R Lab, TU Wien",
+                "url": "https://www.acin.tuwien.ac.at/en/vision-for-robotics/"
+            },
+            {
+                "@type": "Organization",
+                "name": "Adagio"
+            },
+            {
+                "@type": "Organization",
+                "name": "UJI Robotics Team"
+            }
+        ],
         "alumniOf": [
             {
                 "@type": "CollegeOrUniversity",
@@ -410,6 +420,24 @@
         .detail-block a {
             color: var(--accent);
             text-decoration: none;
+        }
+
+        .detail-block p + p {
+            margin-top: 0.5rem;
+        }
+
+        .current-badge {
+            display: inline-block;
+            font-size: 0.6rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            border: 1px solid var(--accent);
+            border-radius: 999px;
+            padding: 0.08rem 0.45rem;
+            margin-left: 0.35rem;
+            vertical-align: middle;
         }
 
         .skills-row {
@@ -1202,8 +1230,10 @@
             </div>
             <div class="about-details">
                 <div class="detail-block">
-                    <h3>Currently</h3>
-                    <p>Research Intern, <a href="https://www.acin.tuwien.ac.at/en/vision-for-robotics/" target="_blank" rel="noopener noreferrer">V4R Lab, TU Wien</a>, Vienna</p>
+                    <h3>Experience</h3>
+                    <p>Research Intern, <a href="https://www.acin.tuwien.ac.at/en/vision-for-robotics/" target="_blank" rel="noopener noreferrer">V4R Lab, TU Wien</a>, Vienna, 2026 <span class="current-badge">Current</span></p>
+                    <p>CTO, Adagio, 2025-present</p>
+                    <p>Robotics Software Developer, UJI Robotics Team, 2022-2025</p>
                 </div>
                 <div class="detail-block">
                     <h3>Education</h3>
