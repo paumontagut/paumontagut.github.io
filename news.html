@@ -151,6 +151,21 @@
             margin: 0 auto;
         }
 
+        .page-header .section-label {
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.1s;
+        }
+
+        .page-header h1 {
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.25s;
+        }
+
+        .page-header p {
+            opacity: 0;
+            animation: fadeUp 0.8s ease forwards 0.4s;
+        }
+
         /* ── NEWS GRID ── */
         .news-section {
             padding: 0 2rem 6rem;
@@ -184,6 +199,11 @@
             width: 100%;
             aspect-ratio: 16 / 9;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .news-card:hover .news-card-image {
+            transform: scale(1.03);
         }
 
         .news-card-body {
@@ -309,25 +329,28 @@
             border: none;
             cursor: pointer;
             padding: 0.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
             color: var(--gray-mid);
             transition: color 0.2s;
             margin-left: 0.5rem;
         }
 
         .theme-toggle:hover { color: var(--black); }
-        .theme-toggle svg { width: 18px; height: 18px; transition: transform 0.3s ease, opacity 0.3s ease; }
-        .theme-toggle .icon-moon { display: none; }
-        html.dark .theme-toggle .icon-sun { display: none; }
-        html.dark .theme-toggle .icon-moon { display: block; }
+        .theme-toggle svg { grid-area: 1 / 1; width: 18px; height: 18px; transition: transform 0.4s ease, opacity 0.3s ease; }
+        .theme-toggle .icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.6); }
+        html.dark .theme-toggle .icon-sun { opacity: 0; transform: rotate(90deg) scale(0.6); }
+        html.dark .theme-toggle .icon-moon { opacity: 1; transform: rotate(0deg) scale(1); }
 
         html.theme-transition,
         html.theme-transition *,
         html.theme-transition *::before,
         html.theme-transition *::after {
             transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+        }
+
+        html.theme-transition .theme-toggle svg {
+            transition: transform 0.4s ease, opacity 0.3s ease !important;
         }
 
         /* ── SCROLL PROGRESS ── */
@@ -452,10 +475,28 @@
         html.dark .news-card:hover {
             box-shadow: 0 12px 40px rgba(0,0,0,0.3);
         }
+
+        /* ── REDUCED MOTION ── */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
-<script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+<script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');</script>
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress"></div>
@@ -622,13 +663,17 @@
         setTimeout(() => document.documentElement.classList.remove('theme-transition'), 450);
     }
 
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-    }
-
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) entry.target.classList.add('visible');
+        entries.filter(e => e.isIntersecting).forEach((entry, i) => {
+            const el = entry.target;
+            const delay = Math.min(i * 80, 400);
+            el.style.transitionDelay = delay + 'ms';
+            el.classList.add('visible');
+            setTimeout(() => {
+                el.style.transitionDelay = '';
+                el.classList.remove('reveal', 'visible');
+            }, 750 + delay);
+            observer.unobserve(el);
         });
     }, { threshold: 0.1 });
 

@@ -679,6 +679,16 @@
             opacity: 0.7;
         }
 
+        .paper-content h3 a {
+            color: inherit;
+            text-decoration: none;
+            transition: color 0.2s;
+        }
+
+        .paper-content h3 a:hover {
+            color: var(--accent);
+        }
+
         /* ── QUOTE ── */
         .quote-section {
             text-align: center;
@@ -1049,6 +1059,14 @@
             .contact-card.email-card {
                 grid-column: auto;
             }
+
+            .contact-section {
+                padding: 5rem 1.5rem;
+            }
+
+            .quote-section {
+                padding: 4rem 1.5rem;
+            }
         }
 
         /* ── DARK MODE OVERRIDES ── */
@@ -1140,9 +1158,8 @@
             border: none;
             cursor: pointer;
             padding: 0.4rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            display: grid;
+            place-items: center;
             color: var(--gray-mid);
             transition: color 0.2s;
             margin-left: 0.5rem;
@@ -1153,14 +1170,26 @@
         }
 
         .theme-toggle svg {
+            grid-area: 1 / 1;
             width: 18px;
             height: 18px;
-            transition: transform 0.3s ease, opacity 0.3s ease;
+            transition: transform 0.4s ease, opacity 0.3s ease;
         }
 
-        .theme-toggle .icon-moon { display: none; }
-        html.dark .theme-toggle .icon-sun { display: none; }
-        html.dark .theme-toggle .icon-moon { display: block; }
+        .theme-toggle .icon-moon {
+            opacity: 0;
+            transform: rotate(-90deg) scale(0.6);
+        }
+
+        html.dark .theme-toggle .icon-sun {
+            opacity: 0;
+            transform: rotate(90deg) scale(0.6);
+        }
+
+        html.dark .theme-toggle .icon-moon {
+            opacity: 1;
+            transform: rotate(0deg) scale(1);
+        }
 
         /* ── THEME TRANSITION ── */
         html.theme-transition,
@@ -1168,6 +1197,10 @@
         html.theme-transition *::before,
         html.theme-transition *::after {
             transition: background 0.4s ease, color 0.4s ease, border-color 0.4s ease, box-shadow 0.4s ease, fill 0.4s ease, stroke 0.4s ease !important;
+        }
+
+        html.theme-transition .theme-toggle svg {
+            transition: transform 0.4s ease, opacity 0.3s ease !important;
         }
 
         /* ── SCROLL PROGRESS ── */
@@ -1194,10 +1227,28 @@
         .nav-inner {
             transition: height 0.3s ease;
         }
+
+        /* ── REDUCED MOTION ── */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+
+            .reveal {
+                opacity: 1;
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
-<script>if(localStorage.getItem('theme')==='dark')document.documentElement.classList.add('dark');</script>
+<script>if(localStorage.getItem('theme')==='dark'||(!localStorage.getItem('theme')&&matchMedia('(prefers-color-scheme: dark)').matches))document.documentElement.classList.add('dark');</script>
 
 <!-- SCROLL PROGRESS -->
 <div class="scroll-progress"></div>
@@ -1398,7 +1449,7 @@
             <div class="paper-item">
                 <div class="paper-year">2026</div>
                 <div class="paper-content">
-                    <h3>Per-Group Error, Not Total MSE: Fine-Tuning Vision-Language-Action Models for 11-DoF Mobile Manipulation</h3>
+                    <h3><a href="https://arxiv.org/abs/2606.00253" target="_blank" rel="noopener noreferrer">Per-Group Error, Not Total MSE: Fine-Tuning Vision-Language-Action Models for 11-DoF Mobile Manipulation</a></h3>
                     <div class="paper-authors">Pau Montagut Bofi, Mario García Blasco, Tessa Pulli, Markus Vincze</div>
                     <div class="paper-venue">ICRA 2026 Workshop "From Data to Decisions: VLA Pipelines for Real Robots" · Accepted as Poster</div>
                     <div class="paper-links">
@@ -1417,7 +1468,7 @@
             <div class="paper-item">
                 <div class="paper-year">2025</div>
                 <div class="paper-content">
-                    <h3>Autonomous 3D Scene Reconstruction from Simulated Drone Imagery Using 3D Gaussian Splatting</h3>
+                    <h3><a href="https://github.com/paumontagut/drone_3dgs_ros2" target="_blank" rel="noopener noreferrer">Autonomous 3D Scene Reconstruction from Simulated Drone Imagery Using 3D Gaussian Splatting</a></h3>
                     <div class="paper-authors">Pau Montagut Bofi</div>
                     <div class="paper-venue">Universitat Jaume I</div>
                     <div class="paper-links">
@@ -1499,17 +1550,18 @@
         setTimeout(() => document.documentElement.classList.remove('theme-transition'), 450);
     }
 
-    // Load saved theme
-    if (localStorage.getItem('theme') === 'dark') {
-        document.documentElement.classList.add('dark');
-    }
-
-    // Scroll reveal
+    // Scroll reveal, staggered per batch
     const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.classList.add('visible');
-            }
+        entries.filter(e => e.isIntersecting).forEach((entry, i) => {
+            const el = entry.target;
+            const delay = Math.min(i * 80, 400);
+            el.style.transitionDelay = delay + 'ms';
+            el.classList.add('visible');
+            setTimeout(() => {
+                el.style.transitionDelay = '';
+                el.classList.remove('reveal', 'visible');
+            }, 750 + delay);
+            observer.unobserve(el);
         });
     }, { threshold: 0.1 });
 
