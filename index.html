@@ -397,24 +397,8 @@
             color: var(--gray-dark);
         }
 
-        .about-photo {
-            margin: 4.5rem auto 0;
-            max-width: 620px;
-            text-align: center;
-        }
 
-        .about-photo img {
-            width: 100%;
-            height: auto;
-            border-radius: 20px;
-            display: block;
-        }
 
-        .about-photo figcaption {
-            margin-top: 0.9rem;
-            font-size: 0.8rem;
-            color: var(--gray-light);
-        }
 
         .about-text p + p {
             margin-top: 1.25rem;
@@ -780,6 +764,155 @@
         .reveal.visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        /* ── NEWS STRIP (About) ── */
+        .news-strip {
+            margin: 4rem auto 0;
+            max-width: 980px;
+        }
+
+        .news-strip-head {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .news-strip-head .section-label {
+            margin-bottom: 0;
+        }
+
+        .news-strip-all {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .news-strip-all .arrow {
+            display: inline-block;
+            transition: transform 0.3s ease;
+        }
+
+        .news-strip-all:hover .arrow {
+            transform: translateX(3px);
+        }
+
+        .news-strip-viewport {
+            overflow-x: auto;
+            scrollbar-width: none;
+            -webkit-mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+            mask-image: linear-gradient(to right, transparent, #000 6%, #000 94%, transparent);
+        }
+
+        .news-strip-viewport::-webkit-scrollbar {
+            display: none;
+        }
+
+        .news-strip-track {
+            display: flex;
+            gap: 1rem;
+            width: max-content;
+            list-style: none;
+            margin: 0;
+            padding: 0.5rem 0 1rem;
+        }
+
+        /* JS clones the list and adds this class. Without JS it stays a scrollable row. */
+        .news-strip.is-animated .news-strip-viewport {
+            overflow: hidden;
+        }
+
+        .news-strip.is-animated .news-strip-track {
+            animation: news-strip-scroll var(--news-strip-duration, 60s) linear infinite;
+        }
+
+        .news-strip.is-animated:hover .news-strip-track,
+        .news-strip.is-animated:focus-within .news-strip-track,
+        .news-strip.is-paused .news-strip-track {
+            animation-play-state: paused;
+        }
+
+        @keyframes news-strip-scroll {
+            from { transform: translateX(0); }
+            to { transform: translateX(calc(-50% - 0.5rem)); }
+        }
+
+        .news-strip-item {
+            flex: 0 0 260px;
+        }
+
+        .news-strip-card {
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            background: var(--white);
+            border: 1px solid var(--gray-border);
+            border-radius: 16px;
+            overflow: hidden;
+            text-decoration: none;
+            color: var(--black);
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+        }
+
+        a.news-strip-card:hover,
+        a.news-strip-card:focus-visible {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+        }
+
+        .news-strip-card img {
+            width: 100%;
+            aspect-ratio: 16 / 9;
+            object-fit: cover;
+            display: block;
+            transition: transform 0.5s ease;
+        }
+
+        a.news-strip-card:hover img {
+            transform: scale(1.03);
+        }
+
+        .news-strip-body {
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+            padding: 1rem 1.1rem 1.1rem;
+        }
+
+        .news-strip-source {
+            font-size: 0.65rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 0.4rem;
+        }
+
+        .news-strip-title {
+            font-size: 0.92rem;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            line-height: 1.35;
+            color: var(--black);
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            margin-bottom: 0.75rem;
+        }
+
+        .news-strip-date {
+            font-size: 0.72rem;
+            color: var(--gray-light);
+            margin-top: auto;
+        }
+
+        @media (max-width: 520px) {
+            .news-strip-item {
+                flex-basis: 220px;
+            }
         }
 
         /* ── RESPONSIVE ── */
@@ -1240,6 +1373,10 @@
                 transition-duration: 0.01ms !important;
             }
 
+            .news-strip-track {
+                animation: none !important;
+            }
+
             .reveal {
                 opacity: 1;
                 transform: none;
@@ -1341,10 +1478,116 @@
                 </div>
             </div>
         </div>
-        <figure class="about-photo reveal">
-            <img src="rh-bots-agibot.webp" alt="Pau Montagut with an AgiBot A3 humanoid robot at the AgiBot Partner Conference" width="1000" height="988" loading="lazy">
-            <figcaption>With the AgiBot A3 humanoid at the AgiBot Partner Conference</figcaption>
-        </figure>
+        <div class="news-strip reveal">
+            <div class="news-strip-head">
+                <div class="section-label">In the news</div>
+                <a class="news-strip-all" href="/news">All news <span class="arrow">→</span></a>
+            </div>
+            <div class="news-strip-viewport">
+                <ul class="news-strip-track">
+                <li class="news-strip-item">
+                    <div class="news-strip-card">
+                        <img src="agibot-certificate-2026.webp" alt="Pau Montagut receiving the AgiBot Certified Senior Engineer and Professional Engineer certificates in Shanghai" loading="lazy" style="object-position: center 40%;">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">AgiBot · Shanghai</span>
+                            <span class="news-strip-title">Certified as AgiBot Senior and Professional Engineer after training in Shanghai</span>
+                            <span class="news-strip-date">August 2026</span>
+                        </span>
+                    </div>
+                </li>
+                <li class="news-strip-item">
+                    <div class="news-strip-card">
+                        <img src="rh-bots-agibot.webp" alt="Pau Montagut with an AgiBot A3 humanoid robot at the AgiBot Partner Conference in London" loading="lazy" style="object-position: center 30%;">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">AgiBot · London</span>
+                            <span class="news-strip-title">With the AgiBot A3 humanoid at the AgiBot Partner Conference in London</span>
+                            <span class="news-strip-date">June 2026</span>
+                        </span>
+                    </div>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://www.linkedin.com/posts/paumontagutbofi_icra2026-robotics-hsr-ugcPost-7468216394577436672-yRQS/" target="_blank" rel="noopener noreferrer">
+                        <img src="hsr-forum-2026.webp" alt="Best Poster Award at the Toyota Global HSR Forum" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">Toyota Global HSR Forum</span>
+                            <span class="news-strip-title">Best Poster Award, Most Inspiring Direction at the first Toyota Global HSR Forum</span>
+                            <span class="news-strip-date">June 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://ondanaranjacope.com/contenidos/pau-montagut-ganador-de-un-premio-de-robotica-internacional" target="_blank" rel="noopener noreferrer">
+                        <img src="cope-challenge-2026.webp" alt="Pau Montagut, 1st place Mobile Manipulation Challenge" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">Onda Naranja COPE</span>
+                            <span class="news-strip-title">Pau Montagut, ganador de un premio de robótica internacional</span>
+                            <span class="news-strip-date">May 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://gandiazoom.com/el-gandiense-pau-montagut-gana-en-viena-una-competicion-internacional-de-robotica-frente-a-36-equipos/" target="_blank" rel="noopener noreferrer">
+                        <img src="levante-emv-2026.webp" alt="Pau Montagut en Viena" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">Gandia Zoom</span>
+                            <span class="news-strip-title">El gandiense Pau Montagut gana en Viena una competición internacional de robótica frente a 36 equipos</span>
+                            <span class="news-strip-date">May 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://www.levante-emv.com/safor/2026/05/19/vecino-gandia-pau-montagut-impone-130409333.html" target="_blank" rel="noopener noreferrer">
+                        <img src="onda-naranja-2026.webp" alt="Pau Montagut con el Toyota HSR" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">Levante-EMV · Safor</span>
+                            <span class="news-strip-title">El vecino de Gandia Pau Montagut se impone a 36 equipos internacionales en un torneo de robótica de Viena</span>
+                            <span class="news-strip-date">May 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://www.acin.tuwien.ac.at/en/award/" target="_blank" rel="noopener noreferrer">
+                        <img src="icra2026.webp" alt="ICRA 2026 Vienna" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">TU Wien · V4R Lab</span>
+                            <span class="news-strip-title">1st place at the ICRA 2026 VLA competition</span>
+                            <span class="news-strip-date">June 2026</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://ruvid.org/uji-robotics-team-presenta-sus-proyectos-para-2025-entre-los-que-destaca-el-prototipo-de-robot-para-competir-european-rover-challenge/" target="_blank" rel="noopener noreferrer">
+                        <img src="uji-robotics-team.webp" alt="UJI Robotics Team presenting rover prototype" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">RUVID</span>
+                            <span class="news-strip-title">UJI Robotics Team presenta su rover para el European Rover Challenge</span>
+                            <span class="news-strip-date">February 2025</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://www.uji.es/com/noticies/2023/3/1q/premis-talent-emprenedor/" target="_blank" rel="noopener noreferrer">
+                        <img src="premis-talent-2023.webp" alt="Premis al Talent Emprenedor UJI 2023" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">Universitat Jaume I</span>
+                            <span class="news-strip-title">Premis al Talent Emprenedor de l'Estudiantat UJI 2023</span>
+                            <span class="news-strip-date">March 2023</span>
+                        </span>
+                    </a>
+                </li>
+                <li class="news-strip-item">
+                    <a class="news-strip-card" href="https://ruvid.org/robotics-team-de-la-uji-queda-subcampeon-en-el-concurso-ceabot-de-robots-humanoides/" target="_blank" rel="noopener noreferrer">
+                        <img src="ceabot-2022.webp" alt="UJI Robotics Team at CEABOT 2022" loading="lazy">
+                        <span class="news-strip-body">
+                            <span class="news-strip-source">RUVID</span>
+                            <span class="news-strip-title">UJI Robotics Team queda subcampeón en CEABOT 2022</span>
+                            <span class="news-strip-date">September 2022</span>
+                        </span>
+                    </a>
+                </li>
+                </ul>
+            </div>
+        </div>
     </div>
 </section>
 
@@ -1563,6 +1806,31 @@
             observer.unobserve(el);
         });
     }, { threshold: 0.1 });
+
+    // About news strip. Clones the list so the loop is seamless and sets the
+    // speed from the real width (about 35 px per second). With reduced motion
+    // it stays a static, scrollable row.
+    (function () {
+        const strip = document.querySelector('.news-strip');
+        if (!strip || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+        const track = strip.querySelector('.news-strip-track');
+        Array.from(track.children).forEach(item => {
+            const copy = item.cloneNode(true);
+            copy.setAttribute('aria-hidden', 'true');
+            copy.querySelectorAll('a').forEach(a => a.setAttribute('tabindex', '-1'));
+            track.appendChild(copy);
+        });
+        const setSpeed = () => {
+            track.style.setProperty('--news-strip-duration', (track.scrollWidth / 2 / 35) + 's');
+        };
+        setSpeed();
+        window.addEventListener('resize', setSpeed);
+        strip.classList.add('is-animated');
+        // Paused while off screen.
+        new IntersectionObserver(([entry]) => {
+            strip.classList.toggle('is-paused', !entry.isIntersecting);
+        }).observe(strip);
+    })();
 
     document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
