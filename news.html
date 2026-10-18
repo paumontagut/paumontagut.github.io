@@ -493,6 +493,97 @@
                 transform: none;
             }
         }
+        /* ── OPEN TO WORK (floating) ── */
+        @property --otw-angle {
+            syntax: '<angle>';
+            inherits: false;
+            initial-value: 0deg;
+        }
+
+        .otw {
+            position: fixed;
+            right: 24px;
+            bottom: 24px;
+            z-index: 900;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.55rem;
+            padding: 0.75rem 1.3rem;
+            border: 2px solid transparent;
+            border-radius: 999px;
+            background:
+                linear-gradient(var(--white), var(--white)) padding-box,
+                conic-gradient(from var(--otw-angle), var(--accent), #ffb38a, transparent 40%, var(--accent) 70%, #ffb38a, var(--accent)) border-box;
+            color: var(--black);
+            font-family: var(--font-display);
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            text-decoration: none;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            animation: otwSpin 3s linear infinite, otwIn 0.6s cubic-bezier(0.23, 1, 0.32, 1) 1.2s backwards;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.3s ease, visibility 0.3s;
+        }
+
+        .otw:hover {
+            transform: scale(1.04);
+            box-shadow: 0 12px 34px rgba(232, 102, 60, 0.3);
+        }
+
+        .otw:focus-visible {
+            outline: 2px solid var(--accent);
+            outline-offset: 3px;
+        }
+
+        .otw-sep {
+            color: var(--accent);
+        }
+
+        .otw-talk {
+            color: var(--accent);
+        }
+
+        .otw-arrow {
+            display: inline-block;
+            transition: transform 0.25s ease;
+        }
+
+        .otw:hover .otw-arrow {
+            transform: translateX(3px);
+        }
+
+        /* Hidden while the contact section is on screen */
+        .otw.is-hidden {
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(8px);
+        }
+
+        @keyframes otwSpin {
+            to { --otw-angle: 360deg; }
+        }
+
+        @keyframes otwIn {
+            from { opacity: 0; transform: translateY(16px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 520px) {
+            .otw {
+                right: 16px;
+                bottom: 16px;
+                padding: 0.65rem 1.05rem;
+                font-size: 0.72rem;
+            }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .otw {
+                animation: none;
+            }
+        }
+
     </style>
 </head>
 <body>
@@ -687,5 +778,6 @@
         nav.classList.toggle('scrolled', window.scrollY > 60);
     }, { passive: true });
 </script>
+<a class="otw" href="/#contact" aria-label="Open to work, let's talk">Open to work <span class="otw-sep" aria-hidden="true">·</span> <span class="otw-talk">Let's talk</span> <span class="otw-arrow otw-talk" aria-hidden="true">→</span></a>
 </body>
 </html>
