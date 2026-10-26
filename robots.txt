@@ -2,3 +2,4 @@ User-agent: *
 Allow: /
 
 Sitemap: https://paumontagut.github.io/sitemap.xml
+Sitemap: https://paumontagut.github.io/per-group-mse-vla/sitemap.xml
